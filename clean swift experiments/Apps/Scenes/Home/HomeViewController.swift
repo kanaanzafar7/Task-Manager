@@ -24,6 +24,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     var lastDocument: DocumentSnapshot?
     var signOutButton : UIBarButtonItem?
     var titleLabel = UILabel()
+    let spinner = UIActivityIndicatorView(style: .medium)
     @IBOutlet weak var tasksTableView: UITableView!
     
     var interactor: HomeBusinessLogic?
@@ -191,6 +192,11 @@ extension HomeViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == tasks.count - 1 {
             fetchTasks()
+               spinner.startAnimating()
+               spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
+
+               self.tasksTableView.tableFooterView = spinner
+               self.tasksTableView.tableFooterView?.isHidden = false
         }
     }
 }
