@@ -1,8 +1,8 @@
 import UIKit
-
+import FirebaseFirestore
 protocol HomeBusinessLogic
 {
-    func fetchTasksList()
+    func fetchTasksList(lastDocument: DocumentSnapshot?)
     func signOutUser()
     func askPermission()
     func deleteTask(taskId : String)
@@ -15,12 +15,11 @@ protocol HomeDataStore
 
 class HomeInteractor: HomeBusinessLogic, HomeDataStore
 {
-    func fetchTasksList() {
+    func fetchTasksList(lastDocument: DocumentSnapshot?) {
         worker = HomeWorker()
-        worker?.fetchTasksList(completion: { tasksList, error in
-            let response = Home.FetchTasksList.Response(tasksList: tasksList, error: error)
+        worker?.fetchTasksList(lastDocument: lastDocument,completion: { tasksList, error, lastDocument in
+            let response = Home.FetchTasksList.Response(tasksList: tasksList, error: error, lastDoument: lastDocument)
             self.presenter?.tasksFetchingComplete(response: response)
-            
         })
     }
     
@@ -30,7 +29,7 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
     func signOutUser() {
         worker = HomeWorker()
         worker?.signOutUser(completion: { error in
-          
+            
             let response = Home.SignOutUser.Response(error: error)
             self.presenter?.signOutRequestCompleted(response: response)
         })

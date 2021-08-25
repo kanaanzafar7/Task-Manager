@@ -1,5 +1,5 @@
 import UIKit
-
+import FirebaseFirestore
 enum Home
 {
     // MARK: Use cases
@@ -8,9 +8,11 @@ enum Home
         struct Response {
             let tasksList : [Task]?
             let error : Error?
+            let lastDoument : DocumentSnapshot?
         }
         struct TasksFetchedSuccessfully {
             let tasksList : [Task]
+            let lastDoucment : DocumentSnapshot
         }
         struct TasksFetchingFailed {
             let error : Error
