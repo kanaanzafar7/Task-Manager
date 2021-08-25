@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Task Details View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController restorationIdentifier="taskDetailScreenId" storyboardIdentifier="taskDetailScreenId" id="Y6W-OH-hqX" customClass="TaskDetailsViewController" customModule="clean_swift_experiments" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qE0-08-ehP">
+                                <rect key="frame" x="20" y="59" width="374" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XBZ-CH-mdc">
+                                        <rect key="frame" x="0.0" y="10" width="52" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <color key="textColor" systemColor="secondarySystemGroupedBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Task title here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z7B-As-yne">
+                                        <rect key="frame" x="62" y="8" width="253" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ojN-ek-P4s">
+                                        <rect key="frame" x="325" y="9.5" width="51" height="31"/>
+                                    </switch>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="u4e-NL-M72"/>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q2r-y4-LIR">
+                                <rect key="frame" x="30" y="826" width="354" height="50"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="5Wn-1F-s1H"/>
+                                </constraints>
+                                <state key="normal" title="Delete Task"/>
+                                <connections>
+                                    <action selector="onPressedDeleteTask:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="QzK-YJ-lRO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="biS-1F-t3y">
+                                <rect key="frame" x="30" y="756" width="354" height="50"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="rtS-5o-yiO"/>
+                                </constraints>
+                                <state key="normal" title="Update Task"/>
+                                <connections>
+                                    <action selector="onPressedUpdateTask:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="b92-9c-t5i"/>
+                                </connections>
+                            </button>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="jvz-l5-7Om">
+                                <rect key="frame" x="0.0" y="596" width="414" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="itB-CC-N7B"/>
+                                </constraints>
+                            </datePicker>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Task Description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FyA-QW-PY9">
+                                <rect key="frame" x="20" y="124" width="374" height="457"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" red="0.38663518429999999" green="0.36990410089999998" blue="0.61571192740000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="q2r-y4-LIR" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="4ge-8a-wJc"/>
+                            <constraint firstAttribute="bottom" secondItem="q2r-y4-LIR" secondAttribute="bottom" constant="20" id="5Bw-sM-BNU"/>
+                            <constraint firstItem="biS-1F-t3y" firstAttribute="top" secondItem="jvz-l5-7Om" secondAttribute="bottom" constant="10" id="9oU-SX-aB8"/>
+                            <constraint firstItem="qE0-08-ehP" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="15" id="AJL-Al-KNC"/>
+                            <constraint firstItem="qE0-08-ehP" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="TJQ-FF-fWZ"/>
+                            <constraint firstItem="q2r-y4-LIR" firstAttribute="top" secondItem="biS-1F-t3y" secondAttribute="bottom" constant="20" id="Y9P-yf-9WA"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="qE0-08-ehP" secondAttribute="trailing" constant="20" id="ZQP-nz-iJD"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="biS-1F-t3y" secondAttribute="trailing" constant="30" id="aEv-0U-Zc5"/>
+                            <constraint firstItem="jvz-l5-7Om" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="cxZ-ag-8JW"/>
+                            <constraint firstItem="biS-1F-t3y" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="30" id="eNb-HC-SRS"/>
+                            <constraint firstItem="FyA-QW-PY9" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="f0t-K6-U9Z"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="q2r-y4-LIR" secondAttribute="trailing" constant="30" id="h0q-9R-7Yc"/>
+                            <constraint firstItem="jvz-l5-7Om" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="jNY-S9-fYL"/>
+                            <constraint firstItem="FyA-QW-PY9" firstAttribute="top" secondItem="qE0-08-ehP" secondAttribute="bottom" constant="15" id="jYg-4u-PLZ"/>
+                            <constraint firstItem="jvz-l5-7Om" firstAttribute="top" secondItem="FyA-QW-PY9" secondAttribute="bottom" constant="15" id="moC-zz-cru"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="FyA-QW-PY9" secondAttribute="trailing" constant="20" id="pQo-yP-V1y"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="datePickerView" destination="jvz-l5-7Om" id="TBN-s1-CnB"/>
+                        <outlet property="deleteTaskButton" destination="q2r-y4-LIR" id="33a-Wx-JMo"/>
+                        <outlet property="descriptionTaskView" destination="FyA-QW-PY9" id="ElJ-6k-tTf"/>
+                        <outlet property="statusSwitch" destination="ojN-ek-P4s" id="2tK-3Y-tnb"/>
+                        <outlet property="titleField" destination="z7B-As-yne" id="8SV-8f-TyK"/>
+                        <outlet property="updateTaskButton" destination="biS-1F-t3y" id="lcg-Tp-yet"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="41.517857142857139"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="secondarySystemGroupedBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
