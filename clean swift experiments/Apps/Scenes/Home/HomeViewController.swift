@@ -1,6 +1,6 @@
 
 import UIKit
-
+import FirebaseFirestore
 protocol HomeDisplayLogic: AnyObject
 {
     func displayTasksFetched(viewModel: Home.FetchTasksList.TasksFetchedSuccessfully)
@@ -21,8 +21,10 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     
     //MARK: - Properties
     var tasks : [Task] = []
+    var lastDocument: DocumentSnapshot?
     var signOutButton : UIBarButtonItem?
     var titleLabel = UILabel()
+    let spinner = UIActivityIndicatorView(style: .medium)
     @IBOutlet weak var tasksTableView: UITableView!
     
     var interactor: HomeBusinessLogic?
@@ -98,9 +100,8 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     
     //MARK: - Methods
     func fetchTasks(){
-        if tasks.isEmpty {
-            showLoadingState() }
-        interactor?.fetchTasksList()
+        showLoadingState()
+        interactor?.fetchTasksList(lastDocument: lastDocument)
     }
     
     @objc func onSignOutpressed() {
@@ -120,46 +121,41 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         
     }
     func displayTasksFetched(viewModel: Home.FetchTasksList.TasksFetchedSuccessfully) {
-        tasks = viewModel.tasksList
+        tasks.append(contentsOf: viewModel.tasksList)
         tasksTableView.isHidden = false
         if !self.titleLabel.isHidden
         { self.titleLabel.isHidden = true
         }
         self.hideLoadingState()
-      
+        
         DispatchQueue.main.async {
             self.tasksTableView.reloadData()
         }
-     
-    
+        lastDocument = viewModel.lastDoucment
     }
     func displayNoTaskFound(viewModel: Home.FetchTasksList.NotaskFound) {
-
         hideLoadingState()
         tasksTableView.isHidden = true
         titleLabel.text = "No Task Found"
         titleLabel.frame = self.view.bounds
         titleLabel.center = CGPoint(x: self.view.bounds.size.width / 2.0, y:self.view.bounds.size.height / 2.0)
         self.view.addSubview(titleLabel)
-        
     }
     func displayErrorFetchingInTask(viewModel: Home.FetchTasksList.TasksFetchingFailed) {
-        print("-----------displayErrorFetchingInTask")
-
         hideLoadingState()
     }
     func displayErrorSigningOut(viewModel: Home.SignOutUser.ErrorSigningOut) {
         showDialog(title: "Error Signing out", message: viewModel.error.localizedDescription)
     }
     func displaySuccessfullySignedOut(viewModel: Home.SignOutUser.SuccessfullySignedOut) {
-       router?.routeToLoginScene(segue: nil)
+        router?.routeToLoginScene(segue: nil)
     }
     func displayTaskDeletedSuccessfully(viewModel: Home.DeleteTask.TaskDeletedSuccessfully) {
     }
     func displayTaskDeletionFailed(viewModel: Home.DeleteTask.ErrorDeletingTask) {
         showDialog(title: "Error Deleting Task!", message: viewModel.error.localizedDescription)
     }
-
+    
 }
 extension HomeViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -193,5 +189,14 @@ extension HomeViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         router?.routeToTaskDetail(segue: nil, task: tasks[indexPath.row])
     }
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == tasks.count - 1 {
+            fetchTasks()
+               spinner.startAnimating()
+               spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
+
+               self.tasksTableView.tableFooterView = spinner
+               self.tasksTableView.tableFooterView?.isHidden = false
+        }
+    }
 }

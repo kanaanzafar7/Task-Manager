@@ -12,8 +12,6 @@ class HomePresenter: HomePresentationLogic
     weak var viewController: HomeDisplayLogic?
     
     // MARK: - Methods
-    
-    
     func tasksFetchingComplete(response : Home.FetchTasksList.Response) {
         if let error = response.error {
             let failureModel = Home.FetchTasksList.TasksFetchingFailed(error: error)
@@ -24,7 +22,8 @@ class HomePresenter: HomePresentationLogic
                 let noTaskFoundModel = Home.FetchTasksList.NotaskFound()
                 viewController?.displayNoTaskFound(viewModel: noTaskFoundModel)
             } else {
-                let successModel = Home.FetchTasksList.TasksFetchedSuccessfully(tasksList: tasks)
+                let successModel = Home.FetchTasksList.TasksFetchedSuccessfully(tasksList: tasks, lastDoucment: response.lastDoument!)
+                
                 viewController?.displayTasksFetched(viewModel: successModel)
             }
         }
