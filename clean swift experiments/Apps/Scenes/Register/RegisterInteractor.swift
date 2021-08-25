@@ -2,13 +2,11 @@ import UIKit
 
 protocol RegisterBusinessLogic
 {
-    //    func doSomething(request: Register.Something.Request)
     func signUp (request: Register.SignUp.Request)
 }
 
 protocol RegisterDataStore
 {
-    //var name: String { get set }
     var email: String {get set}
 }
 

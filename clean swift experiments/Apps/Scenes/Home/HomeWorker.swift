@@ -5,9 +5,6 @@ import FirebaseAuth
 class HomeWorker
 {
     let firestoreDB = Firestore.firestore()
-    func doSomeWork()
-    {
-    }
     
     func fetchTasksList(completion: @escaping (_ tasksList: [Task]?,_ errorProduced: Error?) -> Void){
         
@@ -29,9 +26,6 @@ class HomeWorker
                                 let task = Task(taskId: id, taskTitle: title, taskDescription: description, isCompleted: isCompleted, notificationTime: notificationtime)
                                 tasksList.append(task)
                             }
-                            
-                            //   print("-------data:\(data)")
-                            
                         }
                         completion(tasksList, nil)
                     }else {
@@ -57,15 +51,6 @@ class HomeWorker
     }
     
     func deleteTask(request : Home.DeleteTask.Request, completion: @escaping (_ errorProduced: Error?)->Void){
-    /*    if let userId = Auth.auth().currentUser?.uid {
-            firestoreDB.collection(Constants.FirestoreKeys.users).document(userId).collection(Constants.FirestoreKeys.tasksList).document(request.taskId).delete { deletionError in
-                if let _ = deletionError {
-                    completion(deletionError)
-                }
-            }
-        }
-  */
-        
         HelperFunctions().deleteTask(id: request.taskId, completion: completion)
     }
 }

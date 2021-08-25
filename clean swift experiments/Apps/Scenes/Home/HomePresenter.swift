@@ -2,7 +2,6 @@ import UIKit
 
 protocol HomePresentationLogic
 {
-    func presentSomething(response: Home.Something.Response)
     func tasksFetchingComplete(response : Home.FetchTasksList.Response)
     func signOutRequestCompleted(response: Home.SignOutUser.Response)
     func taskDeletionComplete(response: Home.DeleteTask.Response)
@@ -12,13 +11,7 @@ class HomePresenter: HomePresentationLogic
 {
     weak var viewController: HomeDisplayLogic?
     
-    // MARK: Do something
-    
-    func presentSomething(response: Home.Something.Response)
-    {
-        let viewModel = Home.Something.ViewModel()
-        viewController?.displaySomething(viewModel: viewModel)
-    }
+    // MARK: - Methods
     
     
     func tasksFetchingComplete(response : Home.FetchTasksList.Response) {
@@ -27,7 +20,6 @@ class HomePresenter: HomePresentationLogic
             viewController?.displayErrorFetchingInTask(viewModel: failureModel)
         } else {
             let tasks : [Task] = response.tasksList ?? []
-            //            let successModel = Home.FetchTasksList.TasksFetchedSuccessfully(tasksList: response.tasksList!)
             if tasks.isEmpty {
                 let noTaskFoundModel = Home.FetchTasksList.NotaskFound()
                 viewController?.displayNoTaskFound(viewModel: noTaskFoundModel)

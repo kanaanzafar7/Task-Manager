@@ -31,7 +31,6 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
         if let _ = segue {}else {
             let storyboard = UIStoryboard(name: "AddTask", bundle: nil)
             let destinationVC = storyboard.instantiateViewController(identifier: Constants.addTaskSceneID) as! AddTaskSceneViewController
-            //            var destinationDS = destinationVC.router?.dataStore!
             navigateToAddTaskScene(source: viewController!, destination: destinationVC)
         }
     }
@@ -67,18 +66,10 @@ class HomeRouter: NSObject, HomeRoutingLogic, HomeDataPassing
     func navigateToTaskDetailsScene (source: HomeViewController, destination: TaskDetailsViewController){
         source.show(destination, sender: nil)
     }
-    //func navigateToSomewhere(source: HomeViewController, destination: SomewhereViewController)
-    //{
-    //  source.show(destination, sender: nil)
-    //}
     
     // MARK: Passing data
     func passDataToTaskDetailsScene(task: Task, destination: inout TaskDetailsDataStore){
         destination.task = task
     }
     
-    //func passDataToSomewhere(source: HomeDataStore, destination: inout SomewhereDataStore)
-    //{
-    //  destination.name = source.name
-    //}
 }

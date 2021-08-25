@@ -68,27 +68,11 @@ class RegisterViewController: UIViewController, RegisterDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        print("========\(router?.fetchEmail())")
-        doSomething()
     }
     
     // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething()
-    {
-//        let _ =   router?.fetchEmail()
-        
-    }
-    
-    func displaySomething(viewModel: Register.SignUp.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
-    }
     func successfullyRegistered(viewModelSuccess: Register.SignUp.ViewModelSuccess) {
         hideLoading()
-       // showDialog(title: "Successfully Registered!", message: "name: \(viewModelSuccess.name)")
         router?.routeToHome(segue: nil, name: viewModelSuccess.name)
     }
     

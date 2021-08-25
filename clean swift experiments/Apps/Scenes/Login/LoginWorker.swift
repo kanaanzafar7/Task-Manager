@@ -4,10 +4,6 @@ import FirebaseFirestore
 class LoginWorker
 {
     let firestoreDB = Firestore.firestore()
-    
-    func doSomeWork()
-    {
-    }
     func doSignIn(request: Login.Login.Request, completion: @escaping (_ name: String?,_ errorProduced: Error?) -> Void){
         Auth.auth().signIn(withEmail: request.email, password: request.password) { authResultData, loginError in
             if let _ = loginError {
@@ -30,7 +26,6 @@ class LoginWorker
             } else {
                 if let snapshot = documentSnapshot {
                     if  let data =  snapshot.data() {
-                        print("----------data: \(data)")
                         let name = data[Constants.FirestoreKeys.userName] as! String
                         completion(name, nil) } else {
                             

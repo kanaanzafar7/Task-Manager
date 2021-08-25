@@ -2,7 +2,6 @@ import UIKit
 
 protocol TaskDetailsDisplayLogic: AnyObject
 {
-    func displaySomething(viewModel: TaskDetails.Something.ViewModel)
     func displayTaskDeletedSuccessfully (viewModel: TaskDetails.DeleteTask.TaskDeletedSuccessfully)
     func displayTaskDeletionFailed(viewModel: TaskDetails.DeleteTask.TaskDeletionFailed)
     
@@ -72,23 +71,11 @@ class TaskDetailsViewController: UIViewController, TaskDetailsDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        doSomething()
         initializeValues()
     }
     
     // MARK: - Methods
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething()
-    {
-        let request = TaskDetails.Something.Request()
-        interactor?.doSomething(request: request)
-    }
-    
-    func displaySomething(viewModel: TaskDetails.Something.ViewModel)
-    {
-    }
+   
     func initializeValues (){
         if let task = router?.dataStore?.task {
             taskId = task.taskId

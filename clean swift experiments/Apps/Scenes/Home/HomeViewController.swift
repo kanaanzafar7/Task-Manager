@@ -3,7 +3,6 @@ import UIKit
 
 protocol HomeDisplayLogic: AnyObject
 {
-    func displaySomething(viewModel: Home.Something.ViewModel)
     func displayTasksFetched(viewModel: Home.FetchTasksList.TasksFetchedSuccessfully)
     func displayNoTaskFound(viewModel: Home.FetchTasksList.NotaskFound)
     func displayErrorFetchingInTask(viewModel: Home.FetchTasksList.TasksFetchingFailed)
@@ -86,20 +85,8 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         buildNavigationBarButton()
         updateAddButton()
         registerTaskCellWithTableView()
-        //        NotificationsManager().askPermissionForNotifications()
         interactor?.askPermission()
-        if let name =  router?.getName() {
-            print("----name found: \(name)")
-            //            fetchTasks()
-            
-        } else {
-            //            print("-----name not found")
-            
-        }
-        
         fetchTasks()
-        
-        doSomething()
     }
     
     
@@ -110,16 +97,6 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     }
     
     //MARK: - Methods
-    func doSomething()
-    {
-        let request = Home.Something.Request()
-        interactor?.doSomething(request: request)
-    }
-    
-    func displaySomething(viewModel: Home.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
-    }
     func fetchTasks(){
         if tasks.isEmpty {
             showLoadingState() }
@@ -129,17 +106,8 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     @objc func onSignOutpressed() {
         
         interactor?.signOutUser()
-        //        router?.routeToLoginScene(segue: nil)
-        //        print("------pressed")
-        /*        var alertView = UIAlertView()
-         alertView.addButtonWithTitle("Ok")
-         alertView.title = "title"
-         alertView.message = "message"
-         alertView.show() */
     }
     func buildNavigationBarButton() {
-        //        signOutButton.titleLabel?.text = "Sign out"
-        //        signOutButton.setTitleColor(UIColor.systemBlue, for: .normal)
         signOutButton = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(onSignOutpressed))
         self.navigationItem.rightBarButtonItem = signOutButton
     }
@@ -184,11 +152,9 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         showDialog(title: "Error Signing out", message: viewModel.error.localizedDescription)
     }
     func displaySuccessfullySignedOut(viewModel: Home.SignOutUser.SuccessfullySignedOut) {
-//        print()
-        router?.routeToLoginScene(segue: nil)
+       router?.routeToLoginScene(segue: nil)
     }
     func displayTaskDeletedSuccessfully(viewModel: Home.DeleteTask.TaskDeletedSuccessfully) {
-        print("---++++task deleted successfully")
     }
     func displayTaskDeletionFailed(viewModel: Home.DeleteTask.ErrorDeletingTask) {
         showDialog(title: "Error Deleting Task!", message: viewModel.error.localizedDescription)
@@ -225,8 +191,6 @@ extension HomeViewController : UITableViewDelegate {
         return 70.0
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        taskSelected = indexPath.row
-        print("------+++++++ \(indexPath.row)")
         router?.routeToTaskDetail(segue: nil, task: tasks[indexPath.row])
     }
     

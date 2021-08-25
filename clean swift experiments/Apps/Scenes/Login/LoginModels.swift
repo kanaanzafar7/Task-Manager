@@ -3,20 +3,6 @@ import UIKit
 enum Login
 {
     // MARK: Use cases
-    
-    enum Something
-    {
-        struct Request
-        {
-        }
-        struct Response
-        {
-        }
-        struct ViewModel
-        {
-        }
-    }
-    
     enum Login {
         struct Request
         {
@@ -37,6 +23,4 @@ enum Login
             let loginError : Error
         }
     }
-    
-    
 }

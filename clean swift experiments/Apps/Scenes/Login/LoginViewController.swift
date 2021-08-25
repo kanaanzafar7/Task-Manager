@@ -2,7 +2,6 @@ import UIKit
 
 protocol LoginDisplayLogic: AnyObject
 {
-    func displaySomething(viewModel: Login.Something.ViewModel)
     func successfullyLoggedIn(successViewModel: Login.Login.LoginSuccess)
     func failedToLogin(failureViewModel: Login.Login.LoginFailure)
 }
@@ -55,8 +54,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     // MARK: Routing
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {print("------prepare in login called")
-        if let scene = segue.identifier {
+    {   if let scene = segue.identifier {
             let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
             if let router = router, router.responds(to: selector) {
                 router.perform(selector, with: segue)
@@ -69,27 +67,9 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        doSomething()
     }
     
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething()
-    {
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        emailField.delegate = self
-        passwordField.delegate = self
-        let request = Login.Something.Request()
-        interactor?.doSomething(request: request)
-    }
-    
-    func displaySomething(viewModel: Login.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
-    }
+    //MARK: - Methods
     func successfullyLoggedIn(successViewModel: Login.Login.LoginSuccess) {
         hideLoading()
         router?.routeToHome(segue: nil, name: successViewModel.name)
@@ -104,7 +84,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     
     @IBAction func onSignUpPressed(_ sender: UIButton) {
         
-        let segue = UIStoryboardSegue(identifier: Constants.loginToSignUpSegue, source: self, destination: RegisterViewController())
+//        let segue = UIStoryboardSegue(identifier: Constants.loginToSignUpSegue, source: self, destination: RegisterViewController())
         
         router?.routeToRegister(segue: nil, email: emailField.text)
     }
