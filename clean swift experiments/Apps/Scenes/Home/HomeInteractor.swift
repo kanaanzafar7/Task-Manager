@@ -17,13 +17,12 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
 {
     func fetchTasksList(lastDocument: DocumentSnapshot?) {
         worker = HomeWorker()
-//        worker?.fetchTasksList(lastDocument: lastDocument, completion: { tasksEntities, error in
-//            let response = Home.FetchTasksList.Response(taskEntities: tasksEntities, error: error)
-//            self.presenter?.tasksFetchingComplete(response: response)
-//        })
-        worker?.fetchTasksList(lastDocument: lastDocument, completion: { entitiesList, lastDoc, error in
-//            let response = Home.FetchTasksList.Response(documentsList: lastDoc, taskEntities: entitiesList, error: error)
-            let response = Home.FetchTasksList.Response(lastDoc: lastDoc, taskEntities: entitiesList, error: error)
+        /*worker?.fetchTasksList(lastDocument: lastDocument, completion: { entitiesList, lastDoc, error   in
+            let response = Home.FetchTasksList.Response(lastDoc: lastDoc, taskEntities: entitiesList, error: error, isFirstPage: <#T##Bool?#>)
+            self.presenter?.tasksFetchingComplete(response: response)
+        }) */
+        worker?.fetchTasksList(lastDocument: lastDocument, completion: { entitiesList, lastDoc, isFirstPage, error in
+            let response = Home.FetchTasksList.Response(lastDoc: lastDoc, taskEntities: entitiesList, error: error, isFirstPage: isFirstPage)
             self.presenter?.tasksFetchingComplete(response: response)
         })
     }
@@ -47,7 +46,7 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
         worker = HomeWorker()
         let request = Home.DeleteTask.Request(taskId: taskId)
         worker?.deleteTask(request: request, completion: { deletionError in
-            let response = Home.DeleteTask.Response(error: deletionError)
+         let response = Home.DeleteTask.Response(error: deletionError, deletedTaskId: taskId)
             self.presenter?.taskDeletionComplete(response: response)
         })
     }

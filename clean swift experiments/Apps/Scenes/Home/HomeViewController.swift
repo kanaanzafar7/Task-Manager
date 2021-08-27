@@ -58,8 +58,6 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         presenter.viewController = viewController
         router.viewController = viewController
         router.dataStore = interactor
-        //        buildNavigationBarButton()
-        
     }
     
     // MARK: Routing
@@ -101,11 +99,12 @@ class HomeViewController: UIViewController, HomeDisplayLogic
     //MARK: - Methods
     func fetchTasks(){
         showLoadingState()
-        interactor?.fetchTasksList(lastDocument: lastDocument)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.interactor?.fetchTasksList(lastDocument: self.lastDocument)
+            }
     }
     
     @objc func onSignOutpressed() {
-        
         interactor?.signOutUser()
     }
     func buildNavigationBarButton() {
@@ -121,28 +120,37 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         
     }
     func displayTasksFetched(viewModel: Home.FetchTasksList.TasksFetchedSuccessfully) {
-        print("-------success")
+        
+        if let isFirstPage = viewModel.isFirstPage {
+            if isFirstPage {
+                tasks.removeAll()
+            } else {
+            }
+        } else {
+            
+        }
         tasks.append(contentsOf: viewModel.tasksList)
         tasksTableView.isHidden = false
         if !self.titleLabel.isHidden
         { self.titleLabel.isHidden = true
         }
         self.hideLoadingState()
-        
         DispatchQueue.main.async {
             self.tasksTableView.reloadData()
         }
         lastDocument = viewModel.lastDoucment
     }
+    
     func displayNoTaskFound(viewModel: Home.FetchTasksList.NotaskFound) {
-        print("----no task found")
         if tasks.isEmpty {
-        hideLoadingState()
-        tasksTableView.isHidden = true
-        titleLabel.text = "No Task Found"
-        titleLabel.frame = self.view.bounds
-        titleLabel.center = CGPoint(x: self.view.bounds.size.width / 2.0, y:self.view.bounds.size.height / 2.0)
-            self.view.addSubview(titleLabel) }
+            hideLoadingState()
+            tasksTableView.isHidden = true
+            titleLabel.text = "No Task Found"
+            titleLabel.frame = self.view.bounds
+            titleLabel.center = CGPoint(x: self.view.bounds.size.width / 2.0, y:self.view.bounds.size.height / 2.0)
+            self.view.addSubview(titleLabel) } else {
+                self.tasksTableView.tableFooterView?.isHidden = true
+            }
     }
     func displayErrorFetchingInTask(viewModel: Home.FetchTasksList.TasksFetchingFailed) {
         hideLoadingState()
@@ -154,6 +162,8 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         router?.routeToLoginScene(segue: nil)
     }
     func displayTaskDeletedSuccessfully(viewModel: Home.DeleteTask.TaskDeletedSuccessfully) {
+        tasks.removeAll { return $0.taskId == viewModel.deletedTaskId}
+        tasksTableView.reloadData()
     }
     func displayTaskDeletionFailed(viewModel: Home.DeleteTask.ErrorDeletingTask) {
         showDialog(title: "Error Deleting Task!", message: viewModel.error.localizedDescription)
@@ -195,11 +205,10 @@ extension HomeViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row > 23 && indexPath.row == tasks.count - 1 {
             fetchTasks()
-               spinner.startAnimating()
-               spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
-
-               self.tasksTableView.tableFooterView = spinner
-               self.tasksTableView.tableFooterView?.isHidden = false
+            spinner.startAnimating()
+            spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
+            self.tasksTableView.tableFooterView = spinner
+            self.tasksTableView.tableFooterView?.isHidden = false
         }
     }
 }

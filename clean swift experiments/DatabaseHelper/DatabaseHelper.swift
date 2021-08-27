@@ -6,8 +6,6 @@ struct DatabaseHelper {
     
     func getAllTasks(completion: @escaping (_ tasksList: [TaskEntity]?, _ errorProduced: Error?)->Void) {
         do {
-            //            let predicate = NSPredicate(
-            
             let tasksList: [TaskEntity] = try context.fetch(TaskEntity.fetchRequest())
             completion(tasksList, nil)
         } catch {

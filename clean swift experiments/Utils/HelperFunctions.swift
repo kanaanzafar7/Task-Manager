@@ -14,7 +14,6 @@ struct HelperFunctions {
                     completion(nil)
                 }
             }
-            ///asdasd
         }
     }
     
@@ -37,19 +36,4 @@ struct HelperFunctions {
             }
         } else {}
     }
-    func uploadHundredTasks(){
-        if let userId = Auth.auth().currentUser?.uid {
-            for i in 0...100{
-                let task = Task(taskId: UUID().uuidString, taskTitle: "Task Number \(i)", taskDescription: "Temp task description", isCompleted: false, notificationTime: Date().timeIntervalSince1970)
-                uploadTask(task: task) { taskOpt, errorOpt in
-                    if let error = errorOpt {
-                        print("-----error: \(error)")
-                    } else {
-
-                    }
-                }
-            }
-  
-    }
-}
 }

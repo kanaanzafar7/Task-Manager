@@ -25,7 +25,7 @@ class HomePresenter: HomePresentationLogic
                     viewController?.displayNoTaskFound(viewModel: viewModel)
                 } else {
                     //                    let viewModel = Home.FetchTasksList.TasksFetchedSuccessfully(tasksList: tasksList, lastDoucment: documents.last!)
-                    let viewModel = Home.FetchTasksList.TasksFetchedSuccessfully(tasksList: tasksList, lastDoucment: response.lastDoc)
+                    let viewModel = Home.FetchTasksList.TasksFetchedSuccessfully(tasksList: tasksList, lastDoucment: response.lastDoc, isFirstPage: response.isFirstPage)
                     viewController?.displayTasksFetched(viewModel: viewModel)
                 }
                 
@@ -47,7 +47,7 @@ class HomePresenter: HomePresentationLogic
             let viewModel = Home.DeleteTask.ErrorDeletingTask(error: error)
             viewController?.displayTaskDeletionFailed(viewModel: viewModel)
         } else {
-            viewController?.displayTaskDeletedSuccessfully(viewModel: Home.DeleteTask.TaskDeletedSuccessfully())
+            viewController?.displayTaskDeletedSuccessfully(viewModel: Home.DeleteTask.TaskDeletedSuccessfully(deletedTaskId: response.deletedTaskId))
         }
     }
     /* func extractTasksFromDocuments(documentsList: [DocumentSnapshot])-> [Task]{

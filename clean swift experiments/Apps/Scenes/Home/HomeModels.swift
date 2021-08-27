@@ -10,10 +10,12 @@ enum Home
             let lastDoc: DocumentSnapshot?
             let taskEntities : [TaskEntity]?
             let error : Error?
-         }
+            let isFirstPage : Bool?
+        }
         struct TasksFetchedSuccessfully {
             let tasksList : [Task]
             let lastDoucment : DocumentSnapshot?
+            let isFirstPage : Bool?
         }
         struct TasksFetchingFailed {
             let error : Error
@@ -43,10 +45,13 @@ enum Home
         }
         struct Response {
             let error : Error?
+            let deletedTaskId: String
         }
         struct ErrorDeletingTask {
             let error: Error
         }
-        struct TaskDeletedSuccessfully{}
+        struct TaskDeletedSuccessfully{
+            let deletedTaskId: String
+        }
     }
 }
