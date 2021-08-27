@@ -17,10 +17,6 @@ class HomeInteractor: HomeBusinessLogic, HomeDataStore
 {
     func fetchTasksList(lastDocument: DocumentSnapshot?) {
         worker = HomeWorker()
-        /*worker?.fetchTasksList(lastDocument: lastDocument, completion: { entitiesList, lastDoc, error   in
-            let response = Home.FetchTasksList.Response(lastDoc: lastDoc, taskEntities: entitiesList, error: error, isFirstPage: <#T##Bool?#>)
-            self.presenter?.tasksFetchingComplete(response: response)
-        }) */
         worker?.fetchTasksList(lastDocument: lastDocument, completion: { entitiesList, lastDoc, isFirstPage, error in
             let response = Home.FetchTasksList.Response(lastDoc: lastDoc, taskEntities: entitiesList, error: error, isFirstPage: isFirstPage)
             self.presenter?.tasksFetchingComplete(response: response)

@@ -23,8 +23,9 @@ class HomeWorker
             if let errorProduced = error {
                 completion(nil, nil, nil, errorProduced)
             } else {
+
                 if let documentsList = querySnapshot?.documents {
-                    let lastDoc : DocumentSnapshot?// = documentsList.last
+                    let lastDoc : DocumentSnapshot?
                     if !documentsList.isEmpty {
                         lastDoc = documentsList.last
                     }else {
@@ -68,7 +69,6 @@ class HomeWorker
                         } else {
                             
                             if let tasks = taskEntities {
-                                
                                 completion(tasks, lastDoc, false, nil)
                             } else {
                                 completion([], lastDoc, false, nil)
