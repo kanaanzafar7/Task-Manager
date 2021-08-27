@@ -121,6 +121,7 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         
     }
     func displayTasksFetched(viewModel: Home.FetchTasksList.TasksFetchedSuccessfully) {
+        print("-------success")
         tasks.append(contentsOf: viewModel.tasksList)
         tasksTableView.isHidden = false
         if !self.titleLabel.isHidden
@@ -134,12 +135,14 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         lastDocument = viewModel.lastDoucment
     }
     func displayNoTaskFound(viewModel: Home.FetchTasksList.NotaskFound) {
+        print("----no task found")
+        if tasks.isEmpty {
         hideLoadingState()
         tasksTableView.isHidden = true
         titleLabel.text = "No Task Found"
         titleLabel.frame = self.view.bounds
         titleLabel.center = CGPoint(x: self.view.bounds.size.width / 2.0, y:self.view.bounds.size.height / 2.0)
-        self.view.addSubview(titleLabel)
+            self.view.addSubview(titleLabel) }
     }
     func displayErrorFetchingInTask(viewModel: Home.FetchTasksList.TasksFetchingFailed) {
         hideLoadingState()
@@ -190,7 +193,7 @@ extension HomeViewController : UITableViewDelegate {
         router?.routeToTaskDetail(segue: nil, task: tasks[indexPath.row])
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == tasks.count - 1 {
+        if indexPath.row > 23 && indexPath.row == tasks.count - 1 {
             fetchTasks()
                spinner.startAnimating()
                spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))

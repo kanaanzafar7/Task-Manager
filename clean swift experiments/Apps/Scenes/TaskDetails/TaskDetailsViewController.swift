@@ -75,7 +75,7 @@ class TaskDetailsViewController: UIViewController, TaskDetailsDisplayLogic
     }
     
     // MARK: - Methods
-   
+    
     func initializeValues (){
         if let task = router?.dataStore?.task {
             taskId = task.taskId

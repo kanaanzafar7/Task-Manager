@@ -6,12 +6,14 @@ enum Home
     enum FetchTasksList {
         struct Request {}
         struct Response {
-            let documentsList : [DocumentSnapshot]?
+//            let documentsList : [DocumentSnapshot]?
+            let lastDoc: DocumentSnapshot?
+            let taskEntities : [TaskEntity]?
             let error : Error?
          }
         struct TasksFetchedSuccessfully {
             let tasksList : [Task]
-            let lastDoucment : DocumentSnapshot
+            let lastDoucment : DocumentSnapshot?
         }
         struct TasksFetchingFailed {
             let error : Error
