@@ -9,6 +9,7 @@ pod 'Firebase/Firestore'
 pod 'Alamofire'
 pod 'SwiftyJSON'
 pod 'IQKeyboardManager'
+pod 'Hero'
   # Pods for clean swift experiments
 
 end

@@ -80,13 +80,16 @@ class HomeViewController: UIViewController, HomeDisplayLogic
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.hidesBackButton = true
         navigationItem.title = "Tasks List"
+//        navigationItem.titleView?.hero.id = "titleViewId"
         tasksTableView.delegate = self
         tasksTableView.dataSource = self
         buildNavigationBarButton()
         updateAddButton()
         registerTaskCellWithTableView()
         interactor?.askPermission()
+        self.hero.isEnabled = true
         fetchTasks()
+        
     }
     
     
@@ -182,6 +185,7 @@ extension HomeViewController : UITableViewDataSource {
         tableCell.taskTitleLabel.text = task.taskTitle
         tableCell.taskStatusLabel.text = task.isCompleted ? "Completed" : "Pending"
         tableCell.taskStatusLabel.textColor = task.isCompleted ? UIColor.green : UIColor.red
+        tableCell.hero.id = task.taskId
         return tableCell
     }
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

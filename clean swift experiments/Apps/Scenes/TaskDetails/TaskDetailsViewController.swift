@@ -72,6 +72,7 @@ class TaskDetailsViewController: UIViewController, TaskDetailsDisplayLogic
     {
         super.viewDidLoad()
         initializeValues()
+        
     }
     
     // MARK: - Methods
@@ -87,6 +88,8 @@ class TaskDetailsViewController: UIViewController, TaskDetailsDisplayLogic
         } else {
             print("-----task not found")
         }
+        self.hero.isEnabled = true
+        titleField.hero.id = taskId
     }
     
     func displayTaskDeletedSuccessfully (viewModel: TaskDetails.DeleteTask.TaskDeletedSuccessfully) {

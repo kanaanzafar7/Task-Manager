@@ -7,6 +7,8 @@
 
 import UIKit
 import FirebaseAuth
+import Hero
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
@@ -35,6 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let initialViewController = storyboard.instantiateViewController(withIdentifier: initialViewControllerId)
         let navControl = UINavigationController(rootViewController: initialViewController)
+        navControl.hero.isEnabled = true
         self.window = UIWindow(windowScene: scene as! UIWindowScene)
         self.window?.rootViewController = navControl
         self.window?.makeKeyAndVisible()
